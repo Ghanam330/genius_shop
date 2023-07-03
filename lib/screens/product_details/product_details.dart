@@ -26,7 +26,12 @@ class _ProductDetailsState extends State<ProductDetails> {
       context,
     );
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
+        backgroundColor: Colors.white,
         elevation: 0.0,
         actions: [
           IconButton(

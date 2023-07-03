@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../constants/constant.dart';
 import '../firebase_helper/firebase_firestore/firebase_firestore.dart';
@@ -14,8 +15,57 @@ class AppProvider with ChangeNotifier {
   final List<ProductModel> _buyProductList = [];
 
   UserModel? _userModel;
-
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   UserModel get getUserInformation => _userModel!;
+
+  Future<bool> uploadOrderedProductFirebase(
+      List<ProductModel> list, BuildContext context, String payment) async {
+    try {
+      showLoaderDialog(context);
+      double totalPrice = 0.0;
+      for (var element in list) {
+        totalPrice += element.price * element.qty!;
+      }
+      DocumentReference documentReference = _firebaseFirestore
+          .collection("usersOrders")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("orders")
+          .doc();
+      DocumentReference admin = _firebaseFirestore.collection("orders").doc();
+
+      admin.set({
+        "products": list.map((e) => e.toJson()),
+        "status": "Pending",
+        "totalPrice": totalPrice,
+        "payment": payment,
+        "orderId": admin.id,
+        "userId": FirebaseAuth.instance.currentUser!.uid,
+        "userEmail": FirebaseAuth.instance.currentUser!.email,
+        "userPhone": getUserInformation.phone,
+      });
+      documentReference.set({
+        "products": list.map((e) => e.toJson()),
+        "status": "Pending",
+        "totalPrice": totalPrice,
+        "payment": payment,
+        "orderId": documentReference.id,
+        "userId": FirebaseAuth.instance.currentUser!.uid,
+        "userEmail": FirebaseAuth.instance.currentUser!.email,
+        "userPhone": getUserInformation.phone,
+      });
+      Navigator.of(context, rootNavigator: true).pop();
+      showMessage("Ordered Successfully");
+      return true;
+    } catch (e) {
+      showMessage(e.toString());
+      Navigator.of(context, rootNavigator: true).pop();
+      return false;
+    }
+  }
+
+
+
+
 
   void addCartProduct(ProductModel productModel) {
     _cartProductList.add(productModel);

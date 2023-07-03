@@ -1,10 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
+import 'package:genius_shop/screens/home/tap_screen.dart';
 import 'package:provider/provider.dart';
 import '../../constants/routes.dart';
 import '../../firebase_helper/firebase_firestore/firebase_firestore.dart';
 import '../../provider/app_provider.dart';
 import '../../widgets/primary_button/primary_button.dart';
+import '../stripe_helper/stripe_helper.dart';
 
 
 class CartItemCheckout extends StatefulWidget {
@@ -26,6 +28,9 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
         backgroundColor: Colors.white,
         elevation: 0.0,
         title: const Text(
@@ -112,33 +117,33 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
             const SizedBox(
               height: 24.0,
             ),
-            // PrimaryButton(
-            //   title: "Continues",
-            //   onPressed: () async {
-            //     if (groupValue == 1) {
-            //       bool value = await FirebaseFirestoreHelper.instance
-            //           .uploadOrderedProductFirebase(
-            //           appProvider.getBuyProductList,
-            //           context,
-            //           "Cash on delivery");
-            //       appProvider.clearBuyProduct();
-            //       if (value) {
-            //         Future.delayed(const Duration(seconds: 2), () {
-            //           Routes.instance.push(
-            //               widget: const CustomBottomBar(), context: context);
-            //         });
-            //       }
-            //     } else {
-            //       int value = double.parse(
-            //           appProvider.totalPriceBuyProductList().toString())
-            //           .round()
-            //           .toInt();
-            //       String totalPrice = (value * 100).toString();
-            //       await StripeHelper.instance
-            //           .makePayment(totalPrice.toString(), context);
-            //     }
-            //   },
-            // )
+            PrimaryButton(
+              title: "Continues",
+              onPressed: () async {
+                if (groupValue == 1) {
+                  bool value = await appProvider
+                      .uploadOrderedProductFirebase(
+                      appProvider.getBuyProductList,
+                      context,
+                      "Cash on delivery");
+                  appProvider.clearBuyProduct();
+                  if (value) {
+                    Future.delayed(const Duration(seconds: 2), () {
+                      Routes.instance.push(
+                          widget: TabScreen(), context: context);
+                    });
+                  }
+                } else {
+                  int value = double.parse(
+                      appProvider.totalPriceBuyProductList().toString())
+                      .round()
+                      .toInt();
+                  String totalPrice = (value * 100).toString();
+                  await StripeHelper.instance
+                      .makePayment(totalPrice.toString(), context);
+                }
+              },
+            )
           ],
         ),
       ),

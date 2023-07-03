@@ -4,10 +4,11 @@ import 'package:provider/provider.dart';
 import '../../constants/routes.dart';
 import '../../firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import '../../provider/app_provider.dart';
-import '../../widgets/primary_button/primary_button.dart';
 import '../change_password/change_password.dart';
-import '../edit_profile/edit_profile.dart';
+import '../chat_screen/admin.dart';
+import '../chat_screen/chat_screen.dart';
 import '../favourite_screen/fav_screen.dart';
+import '../order_screen/order_screen.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -26,7 +27,6 @@ class _AccountScreenState extends State<AccountScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-
         elevation: 0.0,
         backgroundColor: Colors.white,
         title: const Text(
@@ -72,7 +72,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 //     title: "Edit Profile",
                 //     onPressed: () {
                 //       Routes.instance
-                //           .push(widget: const EditProfile(), context: context);
+                //           .push(widget:  ChatScreen(), context: context);
                 //     },
                 //   ),
                 // )
@@ -85,8 +85,8 @@ class _AccountScreenState extends State<AccountScreen> {
               children: [
                 ListTile(
                   onTap: () {
-                    // Routes.instance
-                    //     .push(widget: const OrderScreen(), context: context);
+                    Routes.instance
+                        .push(widget: const OrderScreen(), context: context);
                   },
                   leading: const Icon(Icons.shopping_bag_outlined),
                   title: const Text("Your Orders"),
@@ -98,6 +98,14 @@ class _AccountScreenState extends State<AccountScreen> {
                   },
                   leading: const Icon(Icons.favorite_outline),
                   title: const Text("Favourite"),
+                ),
+                ListTile(
+                  onTap: () {
+                    Routes.instance
+                        .push(widget:  ChatScreen(), context: context);
+                  },
+                  leading: const Icon(Icons.chat_outlined),
+                  title: const Text("Chat with us"),
                 ),
                 ListTile(
                   onTap: () {

@@ -158,18 +158,28 @@ class _HomeState extends State<Home> {
                                   CategoryView(categoryModel: e),
                                   context: context);
                             },
-                            child: Card(
-                              color: Colors.white,
-                              elevation: 3.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(20.0),
-                              ),
-                              child: SizedBox(
-                                height: 100,
-                                width: 100,
-                                child: Image.network(e.image),
-                              ),
+                            child: Column(
+                              children: [
+                                Card(
+                                  color: Colors.white,
+                                  elevation: 3.0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                    BorderRadius.circular(10.0),
+                                  ),
+                                  child: SizedBox(
+                                    height: 70,
+                                    width: 70,
+                                    child: Image.network(e.image),
+                                  ),
+                                ),
+                                Text(
+                                  e.name,
+                                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),

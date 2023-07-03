@@ -25,107 +25,112 @@ class ProductsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(
-        getProportionateScreenWidth(5.0),
-      ),
-      decoration: BoxDecoration(
-        color: isSelected ? Colors.white : Colors.white.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(
-          getProportionateScreenWidth(
-            8,
-          ),
+    return InkWell(
+      onTap:() {
+        addHandler();
+      } ,
+      child: Container(
+        padding: EdgeInsets.all(
+          getProportionateScreenWidth(5.0),
         ),
-        boxShadow: [
-          isSelected
-              ? BoxShadow(
-                  color: kShadowColor,
-                  offset: Offset(
-                    getProportionateScreenWidth(24),
-                    getProportionateScreenWidth(24),
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.white : Colors.white.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(
+            getProportionateScreenWidth(
+              8,
+            ),
+          ),
+          boxShadow: [
+            isSelected
+                ? BoxShadow(
+                    color: kShadowColor,
+                    offset: Offset(
+                      getProportionateScreenWidth(24),
+                      getProportionateScreenWidth(24),
+                    ),
+                    blurRadius: 80,
+                  )
+                : const BoxShadow(color: Colors.transparent),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Center(
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: kGreyShade5,
+                    borderRadius: BorderRadius.circular(
+                      getProportionateScreenWidth(8.0),
+                    ),
                   ),
-                  blurRadius: 80,
-                )
-              : const BoxShadow(color: Colors.transparent),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Center(
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: kGreyShade5,
-                  borderRadius: BorderRadius.circular(
-                    getProportionateScreenWidth(8.0),
+                  child: Image.network(
+                    image,
                   ),
-                ),
-                child: Image.network(
-                  image,
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                        fontWeight: FontWeight.w400,
-                      ),
-                ),
-                Text(
-                 description,
-                  maxLines: 2,
-                  style: TextStyle(
-                    overflow: TextOverflow.ellipsis,
-                    fontSize: getProportionateScreenWidth(12),
-                    color: kTextColorAccent,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                          fontWeight: FontWeight.w400,
+                        ),
                   ),
-                ),
-                const Spacer(),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        price,
-                        style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                  Text(
+                   description,
+                    maxLines: 2,
+                    style: TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                      fontSize: getProportionateScreenWidth(12),
+                      color: kTextColorAccent,
                     ),
-                    RawMaterialButton(
-                      onPressed: () {
-                        addHandler();
-                      },
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      fillColor: kPrimaryGreen,
-                      constraints: BoxConstraints.tightFor(
-                        width: getProportionateScreenWidth(
-                          40,
-                        ),
-                        height: getProportionateScreenWidth(
-                          40,
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          price,
+                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
-                      elevation: 0,
-                      child: const Icon(
-                        Icons.add,
-                        color: Colors.white,
-                      ),
-                    )
-                  ],
-                )
-              ],
+                      RawMaterialButton(
+                        onPressed: () {
+                          addHandler();
+                        },
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        fillColor: kPrimaryGreen,
+                        constraints: BoxConstraints.tightFor(
+                          width: getProportionateScreenWidth(
+                            40,
+                          ),
+                          height: getProportionateScreenWidth(
+                            40,
+                          ),
+                        ),
+                        elevation: 0,
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
