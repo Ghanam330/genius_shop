@@ -142,6 +142,15 @@ class OrderScreen extends StatelessWidget {
                                   fontSize: 12.0,
                                 ),
                               ),
+                              const SizedBox(
+                                height: 12.0,
+                              ),
+                              orderModel.status !="Completed" ?
+                              ElevatedButton(
+                                  onPressed:(){}, child: const Text("Cancel Order")):SizedBox.fromSize(),
+                              orderModel.status =="Delivery" ?
+                              ElevatedButton(
+                                  onPressed:(){}, child: const Text("Delivered Order")):SizedBox.fromSize(),
                             ],
                           ),
                         ),

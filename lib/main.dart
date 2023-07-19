@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
           builder: (context, constraints) {
             final customTheme = CustomTheme(constraints);
             return MaterialApp(
+
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 primarySwatch: Colors.green,
