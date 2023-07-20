@@ -156,4 +156,21 @@ class FirebaseFirestoreHelper {
       });
     }
   }
+
+  Future<void> updateOrder(OrderModel orderModel,String status) async {
+    await _firebaseFirestore
+        .collection("usersOrders")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("orders")
+        .doc(orderModel.orderId)
+        .update({
+      "status": status,
+    });
+    await _firebaseFirestore
+        .collection("orders")
+        .doc(orderModel.orderId)
+        .update({
+      "status": status,
+    });
+  }
 }

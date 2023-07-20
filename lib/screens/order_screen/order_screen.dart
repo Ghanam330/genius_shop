@@ -4,9 +4,14 @@ import '../../firebase_helper/firebase_firestore/firebase_firestore.dart';
 import '../../models/order_model/order_model.dart';
 import '../../utils/screen_utils.dart';
 
-class OrderScreen extends StatelessWidget {
+class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
 
+  @override
+  State<OrderScreen> createState() => _OrderScreenState();
+}
+
+class _OrderScreenState extends State<OrderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,12 +150,24 @@ class OrderScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 12.0,
                               ),
-                              orderModel.status !="Completed" ?
+                              orderModel.status =="Pending" || orderModel.status == "Delivery" ?
                               ElevatedButton(
-                                  onPressed:(){}, child: const Text("Cancel Order")):SizedBox.fromSize(),
+                                  onPressed:()async{
+                                   await FirebaseFirestoreHelper.instance.updateOrder(orderModel, "Cancel");
+                                   orderModel.status = "Cancel";
+                                   setState(() {
+
+                                   });
+                                  }, child: const Text("Cancel Order")):SizedBox.fromSize(),
                               orderModel.status =="Delivery" ?
                               ElevatedButton(
-                                  onPressed:(){}, child: const Text("Delivered Order")):SizedBox.fromSize(),
+                                  onPressed:()async{
+                                   await FirebaseFirestoreHelper.instance.updateOrder(orderModel, "Completed");
+                                   orderModel.status = "Completed";
+                                   setState(() {
+
+                                   });
+                                  }, child: const Text("Delivered Order")):SizedBox.fromSize(),
                             ],
                           ),
                         ),
