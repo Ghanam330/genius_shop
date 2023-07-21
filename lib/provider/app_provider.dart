@@ -16,6 +16,7 @@ class AppProvider with ChangeNotifier {
 
   UserModel? _userModel;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+
   UserModel get getUserInformation => _userModel!;
 
   Future<bool> uploadOrderedProductFirebase(
@@ -31,15 +32,16 @@ class AppProvider with ChangeNotifier {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection("orders")
           .doc();
-      DocumentReference admin = _firebaseFirestore.collection("orders").doc();
-
+      DocumentReference admin =
+          _firebaseFirestore.collection("orders").doc(documentReference.id);
+      String uid = FirebaseAuth.instance.currentUser!.uid;
       admin.set({
         "products": list.map((e) => e.toJson()),
         "status": "Pending",
         "totalPrice": totalPrice,
         "payment": payment,
         "orderId": admin.id,
-        "userId": FirebaseAuth.instance.currentUser!.uid,
+        "userId": uid,
         "userEmail": FirebaseAuth.instance.currentUser!.email,
         "userPhone": getUserInformation.phone,
       });
@@ -49,7 +51,7 @@ class AppProvider with ChangeNotifier {
         "totalPrice": totalPrice,
         "payment": payment,
         "orderId": documentReference.id,
-        "userId": FirebaseAuth.instance.currentUser!.uid,
+        "userId": uid,
         "userEmail": FirebaseAuth.instance.currentUser!.email,
         "userPhone": getUserInformation.phone,
       });
@@ -62,10 +64,6 @@ class AppProvider with ChangeNotifier {
       return false;
     }
   }
-
-
-
-
 
   void addCartProduct(ProductModel productModel) {
     _cartProductList.add(productModel);
@@ -115,7 +113,7 @@ class AppProvider with ChangeNotifier {
     } else {
       showLoaderDialog(context);
       String imageUrl =
-      await FirebaseStorageHelper.instance.uploadUserImage(file);
+          await FirebaseStorageHelper.instance.uploadUserImage(file);
       _userModel = userModel.copyWith(image: imageUrl);
       await FirebaseFirestore.instance
           .collection("users")
@@ -128,6 +126,7 @@ class AppProvider with ChangeNotifier {
 
     notifyListeners();
   }
+
   //////// TOTAL PRICE / // / // / / // / / / // /
 
   double totalPrice() {
@@ -151,6 +150,7 @@ class AppProvider with ChangeNotifier {
     _cartProductList[index].qty = qty;
     notifyListeners();
   }
+
   ///////// BUY Product  / / // / / // / / / // /
 
   void addBuyProduct(ProductModel model) {
