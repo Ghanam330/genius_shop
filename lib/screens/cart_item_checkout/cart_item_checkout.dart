@@ -79,41 +79,41 @@ class _CartItemCheckoutState extends State<CartItemCheckout> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 24.0,
-            ),
-            Container(
-              height: 80,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0),
-                  border: Border.all(
-                      color: Theme.of(context).primaryColor, width: 3.0)),
-              width: double.infinity,
-              child: Row(
-                children: [
-                  Radio(
-                    value: 2,
-                    groupValue: groupValue,
-                    onChanged: (value) {
-                      setState(() {
-                        groupValue = value!;
-                      });
-                    },
-                  ),
-                  const Icon(Icons.money),
-                  const SizedBox(
-                    width: 12.0,
-                  ),
-                  const Text(
-                    "Pay Online",
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // const SizedBox(
+            //   height: 24.0,
+            // ),
+            // Container(
+            //   height: 80,
+            //   decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.circular(12.0),
+            //       border: Border.all(
+            //           color: Theme.of(context).primaryColor, width: 3.0)),
+            //   width: double.infinity,
+            //   child: Row(
+            //     children: [
+            //       Radio(
+            //         value: 2,
+            //         groupValue: groupValue,
+            //         onChanged: (value) {
+            //           setState(() {
+            //             groupValue = value!;
+            //           });
+            //         },
+            //       ),
+            //       const Icon(Icons.money),
+            //       const SizedBox(
+            //         width: 12.0,
+            //       ),
+            //       const Text(
+            //         "Pay Online",
+            //         style: TextStyle(
+            //           fontSize: 18.0,
+            //           fontWeight: FontWeight.bold,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             const SizedBox(
               height: 24.0,
             ),
