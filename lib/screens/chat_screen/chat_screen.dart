@@ -13,7 +13,7 @@ class ChatScreen extends StatelessWidget {
         elevation: 0.0,
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.black),
-        title: const Text('Chat'),
+        title: const Text('Chat',style: TextStyle(color: Colors.black)),
       ),
       body: Column(
         children: [
