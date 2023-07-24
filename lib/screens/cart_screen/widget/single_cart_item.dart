@@ -54,7 +54,7 @@ class _SingleCartItemState extends State<SingleCartItem> {
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Stack(
-                  alignment: Alignment.bottomRight,
+                  alignment: Alignment.bottomLeft,
                   children: [
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,18 +119,18 @@ class _SingleCartItemState extends State<SingleCartItem> {
                                     .contains(widget.singleProduct)) {
                                   appProvider.addFavouriteProduct(
                                       widget.singleProduct);
-                                  showMessage("Added to wishlist");
+                                  showMessage("اضافه الدفع");
                                 } else {
                                   appProvider.removeFavouriteProduct(
                                       widget.singleProduct);
-                                  showMessage("Removed to wishlist");
+                                  showMessage("ازاله الدفع");
                                 }
                               },
                               child: Text(
                                 appProvider.getFavouriteProductList
                                     .contains(widget.singleProduct)
-                                    ? "Remove to wishlist"
-                                    : "Add to wishlist",
+                                    ? "ازاله الدفع"
+                                    : "اضافه الدفع",
                                 style: const TextStyle(
                                   fontSize: 12.0,
                                   fontWeight: FontWeight.bold,
@@ -140,7 +140,7 @@ class _SingleCartItemState extends State<SingleCartItem> {
                           ],
                         ),
                         Text(
-                          "\$${widget.singleProduct.price.toString()}",
+                          "${widget.singleProduct.price.toString()} جنيه",
                           style: const TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
@@ -152,7 +152,7 @@ class _SingleCartItemState extends State<SingleCartItem> {
                         padding: EdgeInsets.zero,
                         onPressed: () {
                           appProvider.removeCartProduct(widget.singleProduct);
-                          showMessage("Removed from Cart");
+                          showMessage("تم ازاله الدفع");
                         },
                         child: const CircleAvatar(
                           maxRadius: 13,

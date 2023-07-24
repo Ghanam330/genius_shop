@@ -72,62 +72,71 @@ class ProductsCard extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                          fontWeight: FontWeight.w400,
-                        ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: getProportionateScreenWidth(10),
+                ),
+                Text(
+                  name,
+                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                        fontWeight: FontWeight.w400,
+                      ),
+                ),
+                Text(
+                 description,
+                  maxLines: 2,
+                  style: TextStyle(
+                    overflow: TextOverflow.ellipsis,
+                    fontSize: getProportionateScreenWidth(12),
+                    color: kTextColorAccent,
                   ),
-                  Text(
-                   description,
-                    maxLines: 2,
-                    style: TextStyle(
-                      overflow: TextOverflow.ellipsis,
-                      fontSize: getProportionateScreenWidth(12),
-                      color: kTextColorAccent,
-                    ),
-                  ),
-                  const Spacer(),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          price,
-                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        price,
+                        style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
-                      RawMaterialButton(
-                        onPressed: () {
-                          addHandler();
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    RawMaterialButton(
+                      onPressed: () {
+                        addHandler();
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      fillColor: kPrimaryGreen,
+                      constraints: BoxConstraints.tightFor(
+                        width: getProportionateScreenWidth(
+                          40,
                         ),
-                        fillColor: kPrimaryGreen,
-                        constraints: BoxConstraints.tightFor(
-                          width: getProportionateScreenWidth(
-                            40,
-                          ),
-                          height: getProportionateScreenWidth(
-                            40,
-                          ),
+                        height: getProportionateScreenWidth(
+                          40,
                         ),
-                        elevation: 0,
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
+                      ),
+                      elevation: 0,
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
+                    ),
+
+                  ],
+                ),
+                SizedBox(
+                  height: getProportionateScreenWidth(
+                    10,
+                  ),
+                )
+              ],
             ),
           ],
         ),

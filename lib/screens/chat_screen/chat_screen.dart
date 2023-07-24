@@ -7,81 +7,84 @@ class ChatScreen extends StatelessWidget {
   final  textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0.0,
+    return  Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
         backgroundColor: Colors.white,
-        iconTheme: const IconThemeData(color: Colors.black),
-        title: const Text('Chat',style: TextStyle(color: Colors.black)),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: StreamBuilder<QuerySnapshot>(
-              stream: getMessages(),
-              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text('Error: ${snapshot.error}'),
-                  );
-                }
-
-                if (!snapshot.hasData) {
-                  return const Center(
-                    child: Text('No messages available.'),
-                  );
-                }
-
-                final messages = snapshot.data!.docs;
-
-                return ListView.builder(
-                  itemCount: messages.length,
-                  itemBuilder: (ctx, index) {
-                    final message = messages[index].data() as Map<String, dynamic>;
-                    final content = message['content'] as String? ?? '';
-
-
-                    return ListTile(
-                      title: Text(content),
-                      subtitle: Text(message['sender']),
+        appBar: AppBar(
+          elevation: 0.0,
+          backgroundColor: Colors.white,
+          iconTheme: const IconThemeData(color: Colors.black),
+          title: const Text('المحادثه',style: TextStyle(color: Colors.black)),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: getMessages(),
+                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
                     );
-                  },
-                );
-              },
+                  }
+
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Error: ${snapshot.error}'),
+                    );
+                  }
+
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: Text('لا يوجد رسائل'),
+                    );
+                  }
+
+                  final messages = snapshot.data!.docs;
+
+                  return ListView.builder(
+                    itemCount: messages.length,
+                    itemBuilder: (ctx, index) {
+                      final message = messages[index].data() as Map<String, dynamic>;
+                      final content = message['content'] as String? ?? '';
+
+
+                      return ListTile(
+                        title: Text(content),
+                        subtitle: Text(message['sender']),
+                      );
+                    },
+                  );
+                },
+              ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              children: [
-                 Expanded(
-                  child: TextField(
-                    controller: textEditingController,
-                    decoration: const InputDecoration(
-                      hintText: 'Type a message...',
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children: [
+                   Expanded(
+                    child: TextField(
+                      controller: textEditingController,
+                      decoration: const InputDecoration(
+                        hintText: 'أكتب رسالتك لنا',
+                      ),
                     ),
                   ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.send),
-                  onPressed: () {
-                    // Implement sending message logic
-                    final messageContent = textEditingController.text;
-                    sendMessage(messageContent);
-                    textEditingController.clear();
-                  },
-                ),
-              ],
+                  IconButton(
+                    icon: const Icon(Icons.send),
+                    onPressed: () {
+                      // Implement sending message logic
+                      final messageContent = textEditingController.text;
+                      sendMessage(messageContent);
+                      textEditingController.clear();
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

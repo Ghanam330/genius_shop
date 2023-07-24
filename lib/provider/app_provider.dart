@@ -3,11 +3,14 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../constants/constant.dart';
 import '../firebase_helper/firebase_firestore/firebase_firestore.dart';
 import '../firebase_helper/firebase_storage_helper/firebase_storage_helper.dart';
 import '../models/product_model/product_model.dart';
 import '../models/user_model/user_model.dart';
+
+enum AuthForgotPasswordStatus { initial, loading, success, error }
 
 class AppProvider with ChangeNotifier {
   //// Cart Work
@@ -174,4 +177,27 @@ class AppProvider with ChangeNotifier {
   }
 
   List<ProductModel> get getBuyProductList => _buyProductList;
+
+
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  AuthForgotPasswordStatus _forgotPasswordStatus = AuthForgotPasswordStatus.initial;
+
+  AuthForgotPasswordStatus get forgotPasswordStatus => _forgotPasswordStatus;
+
+  Future<void> forgotPassword(String email) async {
+    _forgotPasswordStatus = AuthForgotPasswordStatus.loading;
+    notifyListeners();
+
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+      _forgotPasswordStatus = AuthForgotPasswordStatus.success;
+      Fluttertoast.showToast(msg: "Successful Check Email");
+    } on FirebaseAuthException catch (e) {
+      _forgotPasswordStatus = AuthForgotPasswordStatus.error;
+      Fluttertoast.showToast(msg: e.message!);
+    }
+
+    notifyListeners();
+  }
 }

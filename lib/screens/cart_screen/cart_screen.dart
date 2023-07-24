@@ -36,14 +36,14 @@ class _CartScreenState extends State<CartScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    "Total",
+                    "اجمالي الدفع",
                     style: TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    "\$${appProvider.totalPrice().toString()}",
+                    "${appProvider.totalPrice().toString()}جنيه",
                     style: const TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
@@ -55,13 +55,13 @@ class _CartScreenState extends State<CartScreen> {
                 height: 24.0,
               ),
               PrimaryButton(
-                title: "Checkout",
+                title: "تأكيد الطلب",
                 onPressed: () {
                   appProvider.clearBuyProduct();
                   appProvider.addBuyProductCartList();
                   appProvider.clearCart();
                   if (appProvider.getBuyProductList.isEmpty) {
-                    showMessage("Cart is empty");
+                    showMessage("لا يوجد منتجات في السلة");
                   } else {
                     Routes.instance.push(
                         widget: const CartItemCheckout(), context: context);
@@ -76,7 +76,7 @@ class _CartScreenState extends State<CartScreen> {
         elevation: 0,
         backgroundColor: Colors.white,
         title: const Text(
-            'My Cart',
+            'سلة المشتريات',
             style:TextStyle(
               color: Colors.black,
               fontSize: 20,
@@ -97,7 +97,7 @@ class _CartScreenState extends State<CartScreen> {
               height: getProportionateScreenHeight(16.0),
             ),
             Text(
-              'Oops your wishlish is empty',
+              'عذرا ، قائمة المشتريات بك فارغة',
               style: Theme.of(context).textTheme.displaySmall!.copyWith(
                 fontWeight: FontWeight.w700,
               ),
@@ -106,7 +106,7 @@ class _CartScreenState extends State<CartScreen> {
               height: getProportionateScreenHeight(16.0),
             ),
             Text(
-              'It seems notinh in here. Explore more and shortlist some items',
+              'يجب أن تضيف بعض المنتجات إلى قائمة المشتريات لتتمكن من الشراء',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                 color: kTextColorAccent,

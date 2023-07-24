@@ -1,95 +1,67 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../constants/constant.dart';
-import '../../firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
-import '../../widgets/primary_button/primary_button.dart';
+import 'package:genius_shop/provider/app_provider.dart';
+import 'package:provider/provider.dart';
 
-class ChangePassword extends StatefulWidget {
-  const ChangePassword({super.key});
 
+class PasswordResetScreen extends StatefulWidget {
   @override
-  State<ChangePassword> createState() => _ChangePasswordState();
+  State<PasswordResetScreen> createState() => _PasswordResetScreenState();
 }
 
-class _ChangePasswordState extends State<ChangePassword> {
+class _PasswordResetScreenState extends State<PasswordResetScreen> {
+  final TextEditingController _emailController = TextEditingController();
+
   bool isShowPassword = true;
-  TextEditingController newpassword = TextEditingController();
-  TextEditingController confirmpassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.black),
-        elevation: 0.0,
-        backgroundColor: Colors.white,
-        title: const Text(
-          "Change Password",
-            style:TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            )
-        ),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        children: [
-          TextFormField(
-            controller: newpassword,
-            obscureText: isShowPassword,
-            decoration: InputDecoration(
-              hintText: "New Password",
-              prefixIcon: const Icon(
-                Icons.password_sharp,
-              ),
-              suffixIcon: CupertinoButton(
-                  onPressed: () {
-                    setState(() {
-                      isShowPassword = !isShowPassword;
-                    });
-                  },
-                  padding: EdgeInsets.zero,
-                  child: const Icon(
-                    Icons.visibility,
-                    color: Colors.grey,
-                  )),
-            ),
-          ),
-          const SizedBox(
-            height: 24.0,
-          ),
-          TextFormField(
-            controller: confirmpassword,
-            obscureText: isShowPassword,
-            decoration: const InputDecoration(
-              hintText: "Confrim Password",
-              prefixIcon: Icon(
-                Icons.password_sharp,
-              ),
+    final authProvider = Provider.of<AppProvider>(context);
 
+    return  Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          iconTheme: const IconThemeData(color: Colors.black),
+          elevation: 0.0,
+          backgroundColor: Colors.white,
+          title: const Text(
+              "إعادة تعيين كلمة المرور",
+              style:TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              )
+          ),
+        ),
+        body: ListView(
+
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          children: [
+           const SizedBox(height: 36.0),
+            TextFormField(
+              controller: _emailController,
+              obscureText: isShowPassword,
+              decoration: const InputDecoration(
+                hintText: "البريد الإلكتروني",
+                prefixIcon:  Icon(
+                  Icons.email_outlined,
+                ),
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 36.0,
-          ),
-          PrimaryButton(
-            title: "Update",
-            onPressed: () async {
-              if (newpassword.text.isEmpty) {
-                showMessage("New Password is empty");
-              } else if (confirmpassword.text.isEmpty) {
-                showMessage("Confirm Password is empty");
-              } else if (confirmpassword.text == newpassword.text) {
-                FirebaseAuthHelper.instance
-                    .changePassword(newpassword.text, context);
-              } else {
-                showMessage("Confrim Password is not match");
-              }
-            },
-          ),
-        ],
+            const SizedBox(height:36.0),
+            ElevatedButton(
+              onPressed: () {
+                final email = _emailController.text.trim();
+                if (email.isNotEmpty) {
+                  authProvider.forgotPassword(email);
+                }
+              },
+              child: const Text('إرسال رابط إعادة تعيين كلمة المرور'),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -29,7 +29,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
               : Image.asset(
             'assets/images/home_nav_notfill.png',
           ),
-          label: 'Home',
+          label: 'الرئيسية',
         ),
         BottomNavigationBarItem(
           icon: widget.curTabIndex == 1
@@ -39,7 +39,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
               : Image.asset(
             'assets/images/star_nav.png',
           ),
-          label: 'Favorite',
+          label: 'المفضلة',
         ),
         BottomNavigationBarItem(
           icon: widget.curTabIndex == 2
@@ -49,7 +49,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
               : Image.asset(
             'assets/images/cart_nav.png',
           ),
-          label: 'Cart',
+          label: 'السلة',
         ),
         BottomNavigationBarItem(
           icon: widget.curTabIndex == 3
@@ -59,7 +59,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
               : Image.asset(
             'assets/images/user_nav.png',
           ),
-          label: 'Profile',
+          label: 'الحساب',
         ),
       ],
     );

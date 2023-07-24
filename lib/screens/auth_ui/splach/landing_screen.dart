@@ -10,19 +10,23 @@ class LandingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenUtils().init(context);
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              flex: 2,
-              child: Image.asset(
-                'assets/images/landing.png',
-                fit: BoxFit.cover,
+      body:Directionality(
+        textDirection: TextDirection.rtl,
+        child: SafeArea(
+          child: Column(
+
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Image.asset(
+                  'assets/images/landing.png',
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            IntroWidget()
-          ],
+              IntroWidget()
+            ],
+          ),
         ),
       ),
     );
@@ -47,7 +51,7 @@ class IntroWidget extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    'Welcome to Genius Shop',
+                    'مرحبًا بكم في متجر عبقرينو ',
                     style: Theme.of(context).textTheme.displayMedium!.copyWith(
                       color: kTextColor,
                       fontWeight: FontWeight.w600,
@@ -58,7 +62,7 @@ class IntroWidget extends StatelessWidget {
             ),
             Spacer(),
             Text(
-              'We have more than 10,000+  available for all of you.',
+              'لدينا أكثر من  10000+ منتج متاح لكم جميعًا.',
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                 color: kTextColorAccent,
               ),
@@ -68,7 +72,7 @@ class IntroWidget extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pushNamed(onboarding);
               },
-              child: Text('Get Started'),
+              child: Text('ابدأ الآن'),
             ),
             Spacer(),
           ],

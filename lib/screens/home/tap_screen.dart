@@ -32,15 +32,18 @@ class _TabScreenState extends State<TabScreen> {
         'widget': const AccountScreen(),
       },
     ];
-    return Scaffold(
-      body: SafeArea(
-        child: pages[curTab]['widget']!,
+    return  Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        body: SafeArea(
+          child: pages[curTab]['widget']!,
+        ),
+        bottomNavigationBar: CustomNavBar((index) {
+          setState(() {
+            curTab = index;
+          });
+        }, curTab),
       ),
-      bottomNavigationBar: CustomNavBar((index) {
-        setState(() {
-          curTab = index;
-        });
-      }, curTab),
     );
   }
 }

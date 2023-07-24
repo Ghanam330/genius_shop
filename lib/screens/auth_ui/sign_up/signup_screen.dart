@@ -50,126 +50,129 @@ class _SignUpScreenState extends State<SignUpScreen> {
               right: 20,
               left: 20,
             ),
-            child: Form(
-              key: _globalKey,
-              child: Column(
-                children: [
-                  CustomText(
-                    text: 'Create Account,',
-                    fontSize: 30,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  CustomText(
-                    text: 'Sign up to Continue',
-                    fontSize: 14,
-                    color: Colors.grey,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  defaultFormField(
-                    controller: nameController,
-                    type: TextInputType.name,
-                    validate: (value) {
-                      if (value!.isEmpty) {
-                        return 'please enter your name';
-                      }
-                      return null;
-                    },
-                    label: 'User Name',
-                    prefix: Icons.person,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  defaultFormField(
-                    controller: emailController,
-                    type: TextInputType.emailAddress,
-                    validate: (String? value) {
-                      if (value!.isEmpty) {
-                        return 'enter your email address';
-                      }
-                      if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                          .hasMatch(value)) {
-                        return ('Please Enter a valid email');
-                      }
-                      return null;
-                    },
-                    label: 'Email',
-                    prefix: Icons.email_outlined,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  defaultFormField(
-                    controller: passwordController,
-                    type: TextInputType.visiblePassword,
-                    suffix: suffix,
-                    onSubmit: (value) {},
-                    isPassword: isPassword,
-                    suffixPressed: () {
-                      changePasswordVisibility();
-                    },
-                    validate: (value) {
-                      if (value!.isEmpty) {
-                        return 'password is too short';
-                      }
-                      return null;
-                    },
-                    label: 'Password',
-                    prefix: Icons.lock_outline,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  defaultFormField(
-                    controller: phoneController,
-                    type: TextInputType.phone,
-                    validate: (String? value) {
-                      if (value!.isEmpty) {
-                        return 'please enter your phone number';
-                      } else if (value.length < 11) {
-                        return 'too short for a phone number!';
-                      }
-                      return null;
-                    },
-                    label: 'Phone',
-                    prefix: Icons.phone,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      if (_globalKey.currentState!.validate()) {
-                        bool isLogin = await FirebaseAuthHelper.instance.signUp(
-                            nameController.text,
-                            emailController.text,
-                            passwordController.text,
-                            phoneController.text,
-                            context);
-                        if (isLogin) {
-                          // ignore: use_build_context_synchronously
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, homeScreen, (route) => false);
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Form(
+                key: _globalKey,
+                child: Column(
+                  children: [
+                    CustomText(
+                      text: 'انشاء حساب جديد',
+                      fontSize: 30,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    CustomText(
+                      text: 'سجل الان لتستمتع بالتسوق',
+                      fontSize: 14,
+                      color: Colors.grey,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    defaultFormField(
+                      controller: nameController,
+                      type: TextInputType.name,
+                      validate: (value) {
+                        if (value!.isEmpty) {
+                          return 'من فضلك ادخل اسم المستخدم';
                         }
-                      }
-                    },
-                    child: const Text('Sign Up'),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  OptionButton(
-                    desc: 'Have an account? ',
-                    method: 'Login',
-                    onPressHandler: () {
-                      Navigator.of(context).pushReplacementNamed(loginScreen);
-                    },
-                  ),
-                ],
+                        return null;
+                      },
+                      label: 'الاسم',
+                      prefix: Icons.person,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    defaultFormField(
+                      controller: emailController,
+                      type: TextInputType.emailAddress,
+                      validate: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'من فضلك ادخل البريد الالكتروني';
+                        }
+                        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                            .hasMatch(value)) {
+                          return ('من فضلك ادخل بريد الكتروني صحيح');
+                        }
+                        return null;
+                      },
+                      label: 'الايميل',
+                      prefix: Icons.email_outlined,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    defaultFormField(
+                      controller: passwordController,
+                      type: TextInputType.visiblePassword,
+                      suffix: suffix,
+                      onSubmit: (value) {},
+                      isPassword: isPassword,
+                      suffixPressed: () {
+                        changePasswordVisibility();
+                      },
+                      validate: (value) {
+                        if (value!.isEmpty) {
+                          return 'من فضلك ادخل الرقم السري';
+                        }
+                        return null;
+                      },
+                      label: 'الرقم السري',
+                      prefix: Icons.lock_outline,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    defaultFormField(
+                      controller: phoneController,
+                      type: TextInputType.phone,
+                      validate: (String? value) {
+                        if (value!.isEmpty) {
+                          return 'من فضلك ادخل رقم الهاتف';
+                        } else if (value.length < 11) {
+                          return 'من فضلك ادخل رقم هاتف صحيح';
+                        }
+                        return null;
+                      },
+                      label: 'رقم الهاتف',
+                      prefix: Icons.phone,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (_globalKey.currentState!.validate()) {
+                          bool isLogin = await FirebaseAuthHelper.instance.signUp(
+                              nameController.text,
+                              emailController.text,
+                              passwordController.text,
+                              phoneController.text,
+                              context);
+                          if (isLogin) {
+                            // ignore: use_build_context_synchronously
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, homeScreen, (route) => false);
+                          }
+                        }
+                      },
+                      child: const Text('انشاء حساب'),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    OptionButton(
+                      desc: 'لديك حساب بالفعل؟',
+                      method: 'تسجيل الدخول',
+                      onPressHandler: () {
+                        Navigator.of(context).pushReplacementNamed(loginScreen);
+                      },
+                    ),
+                  ],
+                ),
               ),
             )),
       ),

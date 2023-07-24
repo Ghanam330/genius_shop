@@ -28,13 +28,11 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     ScreenUtils().init(context);
     return Scaffold(
-      body: Container(
-        child: Column(
-          children: [
-            IllustrationPageView(_controller, setPageCount),
-            TextView(pageCount),
-          ],
-        ),
+      body: Column(
+        children: [
+          IllustrationPageView(_controller, setPageCount),
+          TextView(pageCount),
+        ],
       ),
     );
   }
@@ -48,19 +46,19 @@ class TextView extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Map<String, String>> data = [
       {
-        'title': 'Fresh Vegetables',
+        'title': 'مرحبًا بك في تطبيقنا',
         'desc':
-            'Vegetables that are directly picked by farmers and guaranteed quality and freshness',
+            'مرحبًا بك في تطبيقنا ، نأمل أن تستمتع بالتسوق معنا.',
       },
       {
-        'title': 'Easy Shopping',
+        'title': 'اصبح الشراء عبر الانترنت أسهل',
         'desc':
-            'Grab your items only need to order from home, click pay and wait for the courier to arrive',
+            'يمكنك الشراء في أي مكان وزمان ، فقط باستخدام هاتفك الذكي!',
       },
       {
-        'title': 'Fast Delivery',
+        'title': 'توصيل سريع',
         'desc':
-            'Courier will send the groceries you buy in just 1 day, very fast like a flash!',
+            'نحن نقدم لك توصيل سريع ومجاني للطلبات التي تزيد عن .',
       },
     ];
     return Expanded(
@@ -108,7 +106,7 @@ class TextView extends StatelessWidget {
                  Navigator.of(context).pushNamed(loginScreen);
               },
               child: const Text(
-                'Get Started',
+                'هيا بنا',
               ),
             ),
             const Spacer(),
@@ -175,7 +173,7 @@ class IllustrationPageView extends StatelessWidget {
                      Navigator.of(context).pushNamed(loginScreen);
                   },
                   child: Text(
-                    'Skip',
+                    'تخطي',
                     style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                           color: kTextColor,
                         ),

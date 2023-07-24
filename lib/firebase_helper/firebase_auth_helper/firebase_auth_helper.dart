@@ -1,11 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:genius_shop/constants/constant.dart';
-import 'package:genius_shop/constants/strings.dart';
-import 'package:genius_shop/screens/home/home.dart';
 
 import '../../models/user_model/user_model.dart';
 
@@ -27,28 +23,28 @@ class FirebaseAuthHelper {
       Navigator.of(context).pop();
       switch (error.code) {
         case "invalid-email":
-          errorMessage = "Your email address appears to be malformed.";
+          errorMessage = "يبدو أن عنوان بريدك الإلكتروني غير صحيح.";
           break;
         case "wrong-password":
-          errorMessage = "Your password is wrong.";
+          errorMessage = "كلمة المرور التي أدخلتها غير صحيحة.";
           break;
         case "user-not-found":
-          errorMessage = "User with this email doesn't exist.";
+          errorMessage = "لم يتم العثور على مستخدم بهذا البريد الإلكتروني.";
           break;
         case "user-disabled":
-          errorMessage = "User with this email has been disabled.";
+          errorMessage = "تم تعطيل هذا المستخدم.";
           break;
         case "too-many-requests":
-          errorMessage = "Too many requests";
+          errorMessage = "لقد حظرنا جميع محاولات هذا الجهاز للدخول إلى هذا الحساب. حاول مرة أخرى لاحقًا.";
           break;
         case "operation-not-allowed":
-          errorMessage = "Signing in with Email and Password is not enabled.";
+          errorMessage = "تم تعطيل تسجيل الدخول بواسطة البريد الإلكتروني وكلمة المرور.";
           break;
         case "ERROR_Email_Already_In_Use":
-          errorMessage = "Email Already In Use";
+          errorMessage = "البريد الإلكتروني مستخدم بالفعل";
           break;
         default:
-          errorMessage = "An undefined Error happened.";
+          errorMessage = "حدث خطأ غير معروف.";
       }
       showMessage(errorMessage!);
       return false;

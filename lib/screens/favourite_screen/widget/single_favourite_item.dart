@@ -66,10 +66,10 @@ class _SingleFavouriteItemState extends State<SingleFavouriteItem> {
                                     listen: false);
                                 appProvider
                                     .removeFavouriteProduct(widget.singleProduct);
-                                showMessage("Removed to wishlist");
+                                showMessage("حذف من المفضلة");
                               },
                               child: const Text(
-                                "Remove to wishlist",
+                                "حذف من المفضلة",
                                 style: TextStyle(
                                   fontSize: 12.0,
                                   fontWeight: FontWeight.bold,
@@ -79,7 +79,7 @@ class _SingleFavouriteItemState extends State<SingleFavouriteItem> {
                           ],
                         ),
                         Text(
-                          "\$${widget.singleProduct.price.toString()}",
+                          "${widget.singleProduct.price.toString()} جنيه",
                           style: const TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,

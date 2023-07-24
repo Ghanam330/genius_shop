@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:genius_shop/screens/auth_ui/splach/splash_screen.dart';
+import 'package:genius_shop/screens/change_password/change_password.dart';
 import 'package:genius_shop/screens/home/tap_screen.dart';
 import 'constants/strings.dart';
 import 'screens/auth_ui/login/login_screen.dart';
@@ -21,8 +22,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case signupScreen:
         return MaterialPageRoute(builder: (_) => SignUpScreen());
-    // case resetPasswordScreen:
-    //   return MaterialPageRoute(builder: (_) => ResetPasswordScreen());
+     case resetPasswordScreen:
+       return MaterialPageRoute(builder: (_) => PasswordResetScreen());
       case homeScreen:
         return MaterialPageRoute(
           builder: (_) => TabScreen(),
