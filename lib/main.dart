@@ -11,7 +11,6 @@ void main()async {
   await Firebase.initializeApp();
   runApp(MyApp(
     appRouter: AppRouter(),
-
   ));
 }
 class MyApp extends StatelessWidget {
